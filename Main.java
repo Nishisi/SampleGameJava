@@ -19,7 +19,7 @@ public class Main {
 
 
 	// 無限ループ
-	time = 0;
+	int time = 0;
 	for(;;){
 	    // ユーザからの入力情報
 	    System.out.println("Please input signal");

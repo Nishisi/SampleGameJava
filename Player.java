@@ -14,10 +14,8 @@
  *
  */
 
-public class Player {
+public class Player extends Object {
     char name = 'P';
-    CoodinateValue value = new CoodinateValue();
-    CoodinateValue nextValue = new CoodinateValue();
 
     public void inputSignal(char s) {
 	this.nextValue = this.value;
@@ -42,19 +40,4 @@ public class Player {
 	}
 	System.out.println(s);
     }
-
-    public void update() {
-	this.value = this.nextValue;
-    }
-
-    public void setValue(int x, int y) {
-	this.value.x = x;
-	this.value.y = y;
-    }
-
-    class CoodinateValue {
-	public int x;
-	public int y;
-    }
-
 }
