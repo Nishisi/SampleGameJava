@@ -88,12 +88,26 @@ public class Map  {
 	return this.complate;
     }
 
-    //public int[] getEnemyCoordinate() {
-    //}
-    //
+    public int[] getEnemyCoordinate(char identification) {
+	int[] k = new int[2];
+	for(int i = 0;i < this.initalMap.length;i++) {
+	    for(int j = 0;j < this.initalMap[i].length;j++) {
+		if(this.initalMap[i][j] == identification) {
+		    k[0] = i;
+		    k[1] = j;
+		}
+	    }
+	}
+	return k;
+    }
+    
 
     public void inputPlayer(int x, int y) {
 	this.gameMap[x][y] = 'P';
+    }
+
+    public void inputEnemy(int x, int y, char identi) {
+	this.gameMap[x][y] = identi;
     }
 
     public void printOut(char[][] map) {

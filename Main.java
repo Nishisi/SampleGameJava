@@ -13,14 +13,48 @@ public class Main {
 	player.setValue(ar[0],ar[1]);
 
 	// Enemy のインスタンス化
+	int[] arEa = m.getEnemyCoordinate('A');
+	Enemy enemyA = new Enemy();
+	enemyA.name = 'A';
+	enemyA.setValue(arEa[0],arEa[1]);
 
 	m.inputPlayer(player.value.x, player.value.y);
+	m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
 	m.printOut(m.gameMap);
 
 
 	// 無限ループ
 	int time = 0;
 	for(;;){
+	    // 敵の動き
+	    enemyA.moveY(player.value);
+	    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+		enemyA.update();
+	    } else {
+		enemyA.moveX(player.value);
+		if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+		    enemyA.update();
+		} else {
+		    enemyA.moveDown();
+		    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+			enemyA.update();
+		    } else {
+			enemyA.moveLeft();
+			if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+			    enemyA.update();
+			} else {
+			    enemyA.moveUp();
+			    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+				enemyA.update();
+			    } else {
+				enemyA.moveRight();
+				enemyA.update();
+			    }
+			}
+		    }
+		}
+	    }
+
 	    // ユーザからの入力情報
 	    System.out.println("Please input signal");
 	    char[] input = new Scanner(System.in).nextLine().toCharArray();
@@ -38,6 +72,7 @@ public class Main {
 
 	    m.createGameMap();
 	    m.inputPlayer(player.value.x, player.value.y);
+	    m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
 	    m.printOut(m.gameMap);
 	    if(m.getComplate()) {
 		System.out.println("Congrats!!");
