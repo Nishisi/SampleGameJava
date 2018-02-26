@@ -10,6 +10,7 @@
  * getPlayerCoordinate : プレイヤーの座標を取得する。
  * getEnemyCoordinate : 敵の座標を取得する。
  * checkCoorinate : 受け付けた座標に行けるかどうか確認。
+ * inputPlayer : プレイヤーの位置を読み込み
  * printOut : マップを出力する
  *
  * copyArray : 配列をコピーする
@@ -42,14 +43,33 @@ public class Map  {
     }
 
     public boolean checkCoorinate(int x, int y) {
-	return false;
+	if(this.gameMap[x][y] == ' ') {
+	    return true;
+	} else {
+	    return false;
+	}
     }
 
-    //public int[] getPlayerCoordinate() {
-    //}
+    public int[] getPlayerCoordinate() {
+	int[] k = new int[2];
+	for(int i = 0;i < this.initalMap.length;i++) {
+	    for(int j = 0;j < this.initalMap[i].length;j++) {
+		if(this.initalMap[i][j] == 'S') {
+		    k[0] = i;
+		    k[1] = j;
+		}
+	    }
+	}
+	return k;
+    }
 
     //public int[] getEnemyCoordinate() {
     //}
+    //
+
+    public void inputPlayer(int x, int y) {
+	this.gameMap[x][y] = 'P';
+    }
 
     public void printOut(char[][] map) {
 	for(char[] row : map) {
