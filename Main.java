@@ -39,6 +39,10 @@ public class Main {
 	    m.createGameMap();
 	    m.inputPlayer(player.value.x, player.value.y);
 	    m.printOut(m.gameMap);
+	    if(m.getComplate()) {
+		System.out.println("Congrats!!");
+		break;
+	    }
 
 	    // 回数終了条件
 	    if(++time == 50) {

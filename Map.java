@@ -2,6 +2,8 @@
  * Mapクラス
  * ------------
  * <属性>
+ * complate : クリア条件を満たしたかどうか
+ * items : マップにあるアイテムの数
  * initialMap : マップ情報
  * gameMap : ゲーム用のMap情報
  * ------------
@@ -12,17 +14,20 @@
  * checkCoorinate : 受け付けた座標に行けるかどうか確認。
  * inputPlayer : プレイヤーの位置を読み込み
  * printOut : マップを出力する
+ * getComplate : クリア条件を満たしているかどうか
  *
  * copyArray : 配列をコピーする
  * */
 //import java.util.Arrays;
 
 public class Map  {
+    boolean complate = false;
+    int items;
     char[][] gameMap;
     char[][] initalMap = {
 	{'#','#','#','#','#','#','#','#','#','#','#'},
 	{'#','o',' ',' ','A','#','B',' ',' ','G','#'},
-	{'#',' ','#','#',' ','#',' ','#','#',' ','#'},
+	{'#',' ','#','#',' ',' ',' ','#','#',' ','#'},
 	{'#',' ','#',' ','o','#','o',' ',' ',' ','#'},
 	{'#',' ','#',' ','#','#','#',' ','#',' ','#'},
 	{'#','S',' ',' ',' ','o',' ',' ',' ','o','#'},
@@ -31,10 +36,15 @@ public class Map  {
 
     public void createGameMap() {
 	copyArray();
+	this.items = 0;
 	for(int i = 0;i < this.gameMap.length;i++) {
 	    for(int j = 0;j < this.gameMap[i].length;j++) {
 		if(this.gameMap[i][j] == ' ' || this.gameMap[i][j] == '#'){
 		    continue;
+		} else if(this.gameMap[i][j] == 'o') {
+		    this.items++;
+		} else if(this.gameMap[i][j] == 'G') {
+		    this.gameMap[i][j] = 'G';
 		} else {
 		    this.gameMap[i][j] = ' ';
 		}
@@ -44,6 +54,17 @@ public class Map  {
 
     public boolean checkCoorinate(int x, int y) {
 	if(this.gameMap[x][y] == ' ') {
+	    return true;
+	} else if(this.gameMap[x][y] == 'o') {
+	    this.initalMap[x][y] = ' ';
+	    --items;
+	    return true;
+	} else if(this.gameMap[x][y] == 'G') {
+	    if(items == 0) {
+		this.complate = true;
+	    } else {
+		this.complate = false;
+	    }
 	    return true;
 	} else {
 	    return false;
@@ -63,6 +84,10 @@ public class Map  {
 	return k;
     }
 
+    public boolean getComplate() {
+	return this.complate;
+    }
+
     //public int[] getEnemyCoordinate() {
     //}
     //
@@ -74,7 +99,7 @@ public class Map  {
     public void printOut(char[][] map) {
 	for(char[] row : map) {
 	    System.out.println(row);
-	    }
+	}
     }
 
     private void copyArray() {
