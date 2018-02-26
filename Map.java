@@ -11,7 +11,8 @@
  * createGameMap : ゲーム用のマップ情報を生成する。
  * getPlayerCoordinate : プレイヤーの座標を取得する。
  * getEnemyCoordinate : 敵の座標を取得する。
- * checkCoorinate : 受け付けた座標に行けるかどうか確認。
+ * checkPlayerCoorinate : 受け付けた座標に行けるかどうか確認。
+ * checkEnemyCoorinate: 受け付けた座標は到達可能かどうか
  * inputPlayer : プレイヤーの位置を読み込み
  * printOut : マップを出力する
  * getComplate : クリア条件を満たしているかどうか
@@ -52,7 +53,11 @@ public class Map  {
 	}
     }
 
-    public boolean checkCoorinate(int x, int y) {
+    public boolean checkPlayerCoorinate(int x, int y) {
+	if(x < 1 || x > 5 || y < 1 || y > 9) {
+	    return false;
+	}
+
 	if(this.gameMap[x][y] == ' ') {
 	    return true;
 	} else if(this.gameMap[x][y] == 'o') {
@@ -66,8 +71,21 @@ public class Map  {
 		this.complate = false;
 	    }
 	    return true;
+	} else if(this.gameMap[x][y] == '#') {
+	    return false;
 	} else {
 	    return false;
+	}
+    }
+
+    public boolean checkEnemyCoorinate(int x, int y) {
+	if(x < 1 || x > 5 || y < 1 || y > 9) {
+	    return false;
+	}
+	if(gameMap[x][y] == '#') {
+	    return false;
+	} else {
+	    return true;
 	}
     }
 

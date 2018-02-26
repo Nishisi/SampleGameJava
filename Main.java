@@ -18,33 +18,42 @@ public class Main {
 	enemyA.name = 'A';
 	enemyA.setValue(arEa[0],arEa[1]);
 
+	int[] arEb = m.getEnemyCoordinate('B');
+	Enemy enemyB = new Enemy();
+	enemyB.name = 'B';
+	enemyB.setValue(arEb[0],arEb[1]);
+
 	m.inputPlayer(player.value.x, player.value.y);
 	m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
+	m.inputEnemy(enemyB.value.x, enemyB.value.y, enemyB.name);
 	m.printOut(m.gameMap);
 
 
 	// 無限ループ
 	int time = 0;
 	for(;;){
+	    m.createGameMap();
+
+
 	    // 敵の動き
 	    enemyA.moveY(player.value);
-	    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+	    if(m.checkEnemyCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
 		enemyA.update();
 	    } else {
 		enemyA.moveX(player.value);
-		if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+		if(m.checkEnemyCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
 		    enemyA.update();
 		} else {
 		    enemyA.moveDown();
-		    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+		    if(m.checkEnemyCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
 			enemyA.update();
 		    } else {
 			enemyA.moveLeft();
-			if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+			if(m.checkEnemyCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
 			    enemyA.update();
 			} else {
 			    enemyA.moveUp();
-			    if(m.checkCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
+			    if(m.checkEnemyCoorinate(enemyA.nextValue.x, enemyA.nextValue.y)) {
 				enemyA.update();
 			    } else {
 				enemyA.moveRight();
@@ -55,24 +64,56 @@ public class Main {
 		}
 	    }
 
-	    // ユーザからの入力情報
-	    System.out.println("Please input signal");
-	    char[] input = new Scanner(System.in).nextLine().toCharArray();
-	    if (input.length == 1) {
-		player.inputSignal(input[0]);
-		if(m.checkCoorinate(player.nextValue.x, player.nextValue.y)) {
-		    player.update();
-		} else {
-		    continue;
-		}
+	    enemyB.moveX(player.value);
+	    if(m.checkEnemyCoorinate(enemyB.nextValue.x, enemyB.nextValue.y)) {
+		enemyB.update();
 	    } else {
-		System.out.println("不適切な入力です");
-		continue;
+		enemyB.moveY(player.value);
+		if(m.checkEnemyCoorinate(enemyB.nextValue.x, enemyB.nextValue.y)) {
+		    enemyB.update();
+		} else {
+		    enemyB.moveUp();
+		    if(m.checkEnemyCoorinate(enemyB.nextValue.x, enemyB.nextValue.y)) {
+			enemyB.update();
+		    } else {
+			enemyB.moveLeft();
+			if(m.checkEnemyCoorinate(enemyB.nextValue.x, enemyB.nextValue.y)) {
+			    enemyB.update();
+			} else {
+			    enemyB.moveDown();
+			    if(m.checkEnemyCoorinate(enemyB.nextValue.x, enemyB.nextValue.y)) {
+				enemyB.update();
+			    } else {
+				enemyB.moveRight();
+				enemyB.update();
+			    }
+			}
+		    }
+		}
 	    }
 
-	    m.createGameMap();
+	    // ユーザからの入力情報
+	    System.out.println("Please input signal");
+	    for(;;) {
+		char[] input = new Scanner(System.in).nextLine().toCharArray();
+		if (input.length == 1) {
+		    player.inputSignal(input[0]);
+		    if(m.checkPlayerCoorinate(player.nextValue.x, player.nextValue.y)) {
+			player.update();
+			break;
+		    } else {
+			System.out.println("移動できません");
+			continue;
+		    }
+		} else {
+		    System.out.println("不適切な入力です");
+		    continue;
+		}
+	    }
+
 	    m.inputPlayer(player.value.x, player.value.y);
 	    m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
+	    m.inputEnemy(enemyB.value.x, enemyB.value.y, enemyB.name);
 	    m.printOut(m.gameMap);
 	    if(m.getComplate()) {
 		System.out.println("Congrats!!");

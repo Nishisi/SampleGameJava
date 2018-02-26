@@ -16,14 +16,14 @@
 public class Enemy extends Object {
     public void moveY(CoodinateValue player) {
 	if(this.value.x - player.x > 0) {
-	    moveDown();
-	} else {
 	    moveUp();
+	} else {
+	    moveDown();
 	}
     }
 
     public void moveX(CoodinateValue player) {
-	if(this.value.y - player.y >0) {
+	if(this.value.y - player.y > 0) {
 	    moveLeft();
 	} else {
 	    moveRight();
@@ -31,22 +31,22 @@ public class Enemy extends Object {
     }
 
     public void moveUp() {
-	this.nextValue = this.value;
+	setNextValue(this.value.x, this.value.y);
 	--this.nextValue.x;
     }
 
     public void moveDown() {
-	this.nextValue = this.value;
+	setNextValue(this.value.x, this.value.y);
 	++this.nextValue.x;
     }
 
     public void moveRight() {
-	this.nextValue = this.value;
+	setNextValue(this.value.x, this.value.y);
 	++this.nextValue.y;
     }
 
     public void moveLeft(){
-	this.nextValue = this.value;
+	setNextValue(this.value.x, this.value.y);
 	--this.nextValue.y;
     }
 
