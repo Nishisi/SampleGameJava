@@ -1,3 +1,18 @@
+/*
+ * Object クラス
+ * -------------
+ *  <属性>
+ *  name : 名前
+ *  value : 現在の座標
+ *  nextValue : 次に移動予定の座標
+ * -------------
+ *  <操作>
+ *  update : 座標の更新
+ *  setValue : valueのセッター
+ *  setNextValue : nextValueのセッター
+ *  -----------
+ *  CoorinateValue クラス : 座標用のクラス
+ */
 public class Object {
     char name;
     CoodinateValue value = new CoodinateValue();

@@ -103,7 +103,6 @@ public class Main {
 			break;
 		    } else {
 			System.out.println("移動できません");
-			continue;
 		    }
 		} else {
 		    System.out.println("不適切な入力です");
@@ -111,10 +110,16 @@ public class Main {
 		}
 	    }
 
-	    m.inputPlayer(player.value.x, player.value.y);
 	    m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
 	    m.inputEnemy(enemyB.value.x, enemyB.value.y, enemyB.name);
+
+	    m.inputPlayer(player.value.x, player.value.y);
 	    m.printOut(m.gameMap);
+
+	    if(m.getGameOver()) {
+		System.out.println("GAME OVER !!");
+	    }
+
 	    if(m.getComplate()) {
 		System.out.println("Congrats!!");
 		break;

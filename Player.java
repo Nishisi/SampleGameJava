@@ -18,7 +18,7 @@ public class Player extends Object {
     char name = 'P';
 
     public void inputSignal(char s) {
-	this.nextValue = this.value;
+	setNextValue(this.value.x, this.value.y);
 	switch(s) {
 	    case 'w':
 		break;

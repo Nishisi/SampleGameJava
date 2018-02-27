@@ -23,6 +23,7 @@
 
 public class Map  {
     boolean complate = false;
+    boolean gameOver = false;
     int items;
     char[][] gameMap;
     char[][] initalMap = {
@@ -106,6 +107,10 @@ public class Map  {
 	return this.complate;
     }
 
+    public boolean getGameOver() {
+	return this.gameOver;
+    }
+
     public int[] getEnemyCoordinate(char identification) {
 	int[] k = new int[2];
 	for(int i = 0;i < this.initalMap.length;i++) {
@@ -121,6 +126,9 @@ public class Map  {
     
 
     public void inputPlayer(int x, int y) {
+	if(gameMap[x][y] == 'A' || gameMap[x][y] == 'B') {
+	    this.gameOver = true;
+	}
 	this.gameMap[x][y] = 'P';
     }
 
