@@ -124,12 +124,24 @@ public class Map  {
 	return k;
     }
     
-
-    public void inputPlayer(int x, int y) {
-	if(gameMap[x][y] == 'A' || gameMap[x][y] == 'B') {
+    public  void inputPlayer(int pnx, int pny, int px, int py, int eaX, int eaY, int ebX, int ebY) {
+	if(gameMap[pnx][pny] == 'A' || gameMap[pnx][pny] == 'B') {
 	    this.gameOver = true;
 	}
-	this.gameMap[x][y] = 'P';
+
+	if(eaX == pnx && eaY == pny) {
+	    if(gameMap[px][py] == 'A') {
+		this.gameOver = true;
+	    }
+	}
+
+	if(ebX == pnx && ebY == pny) {
+	    if(gameMap[px][py] == 'B') {
+		this.gameOver = true;
+	    }
+	}
+
+	this.gameMap[pnx][pny] = 'P';
     }
 
     public void inputEnemy(int x, int y, char identi) {
