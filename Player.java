@@ -40,6 +40,6 @@ public class Player extends Object {
 		System.out.println("不適切な入力です");
 		break;
 	}
-	System.out.println(s);
+	//System.out.println(s);
     }
 }
