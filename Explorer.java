@@ -1,7 +1,16 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.Collections;
+import java.util.Arrays;
+import java.util.Random;
 
-public class Main {
+public class Explorer {
     public static void main(String[] args) {
+	//System.out.println(perform());
+	perform(RandomChar());
+    }
+
+    public static boolean perform(char[] moving) {
 
 	Map m = new Map();
 	Player player = new Player();
@@ -14,19 +23,19 @@ public class Main {
 
 	// Enemy のインスタンス化
 	int[] arEa = m.getEnemyCoordinate('A');
-	Enemy enemyA = new Enemy('A');
-	//enemyA.name = 'A';
+	Enemy enemyA = new Enemy();
+	enemyA.name = 'A';
 	enemyA.setValue(arEa[0],arEa[1]);
 
 	int[] arEb = m.getEnemyCoordinate('B');
-	Enemy enemyB = new Enemy('B');
-	//enemyB.name = 'B';
+	Enemy enemyB = new Enemy();
+	enemyB.name = 'B';
 	enemyB.setValue(arEb[0],arEb[1]);
 
 	m.inputPlayer(player.value.x, player.value.y,0,0,0,0,0,0);
 	m.inputEnemy(enemyA.value.x, enemyA.value.y, enemyA.name);
 	m.inputEnemy(enemyB.value.x, enemyB.value.y, enemyB.name);
-	m.printOut(m.getGameMap());
+	m.printOut(m.gameMap);
 
 
 	// 無限ループ
@@ -70,21 +79,13 @@ public class Main {
 		}
 	    }
 
-	    // ユーザからの入力情報
-	    // 検査し、次の座標を決定する
-	    System.out.print("Please input signal : ");
+
 	    for(;;) {
-		char[] input = new Scanner(System.in).nextLine().toCharArray();
-		if (input.length == 1) {
-		    player.inputSignal(input[0]);
-		    if(m.checkPlayerCoorinate(player.nextValue.x, player.nextValue.y)) {
-			break;
-		    } else {
-			System.out.println("移動できません");
-		    }
+		player.inputSignal(moving[time]);
+		if(m.checkPlayerCoorinate(player.nextValue.x, player.nextValue.y)) {
+		    break;
 		} else {
-		    System.out.println("不適切な入力です");
-		    continue;
+		    System.out.println("移動できません");
 		}
 	    }
 
@@ -93,7 +94,7 @@ public class Main {
 	    m.inputEnemy(enemyB.nextValue.x, enemyB.nextValue.y, enemyB.name);
 
 	    m.inputPlayer(player.nextValue.x, player.nextValue.y, player.value.x, player.value.y , enemyA.value.x, enemyA.value.y, enemyB.value.x, enemyB.value.y);
-	    m.printOut(m.getGameMap());
+	    m.printOut(m.gameMap);
 
 	    // 座標の更新
 	    player.update();
@@ -102,12 +103,12 @@ public class Main {
 
 	    if(m.getGameOver()) {
 		System.out.println("GAME OVER !!");
-		break;
+		return false;
 	    }
 
 	    if(m.getComplate()) {
 		System.out.println("Congrats!!");
-		break;
+		return true;
 	    }
 
 	    // 回数終了条件
@@ -115,6 +116,34 @@ public class Main {
 		break;
 	    }
 	}
+	return false;
+    }
+
+    public static char[] RandomChar() {
+	ArrayList<Integer> list = new ArrayList<Integer>();
+
+	char[] str = new char[60];
+	Random rand = new Random();
+	for(int i = 0; i < 60; i++) {
+	    switch(rand.nextInt(5)) {
+		case 0:
+		    str[i] = 'w';
+		    break;
+		case 1:
+		    str[i] = 'u';
+		    break;
+		case 2:
+		    str[i] = 'd';
+		    break;
+		case 3:
+		    str[i] = 'r';
+		    break;
+		case 4:
+		    str[i] = 'l';
+		    break;
+	    }
+	}
+	return str;
     }
 }
 

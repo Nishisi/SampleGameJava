@@ -15,7 +15,9 @@
  */
 
 public class Player extends Object {
-    char name = 'P';
+    Player() {
+	char name = 'P';
+    }
 
     public void inputSignal(char s) {
 	setNextValue(this.value.x, this.value.y);

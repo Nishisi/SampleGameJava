@@ -14,6 +14,10 @@
 
 
 public class Enemy extends Object {
+    Enemy(char s) {
+	this.name = s;
+    }
+
     public void moveY(CoodinateValue player) {
 	if(this.value.x - player.x > 0) {
 	    moveUp();

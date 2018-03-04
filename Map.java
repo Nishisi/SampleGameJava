@@ -2,12 +2,16 @@
  * Mapクラス
  * ------------
  * <属性>
- * complate : クリア条件を満たしたかどうか
- * items : マップにあるアイテムの数
+ * complate   : クリア条件を満たしたかどうか
+ * gameOver   : ゲームオーバかどうか
+ * items      : マップにあるアイテムの数
+ * gameMap    : ゲーム用のMap情報
  * initialMap : マップ情報
- * gameMap : ゲーム用のMap情報
  * ------------
  * <操作>
+ * getComplate : complate の getter 
+ * getGameOver : gameOver の getter
+ * getGameMap  : gameMap の getter
  * createGameMap : ゲーム用のマップ情報を生成する。
  * getPlayerCoordinate : プレイヤーの座標を取得する。
  * getEnemyCoordinate : 敵の座標を取得する。
@@ -15,18 +19,17 @@
  * checkEnemyCoorinate: 受け付けた座標は到達可能かどうか
  * inputPlayer : プレイヤーの位置を読み込み
  * printOut : マップを出力する
- * getComplate : クリア条件を満たしているかどうか
  *
  * copyArray : 配列をコピーする
  * */
 //import java.util.Arrays;
 
 public class Map  {
-    boolean complate = false;
-    boolean gameOver = false;
-    int items;
-    char[][] gameMap;
-    char[][] initalMap = {
+    private boolean complate = false;
+    private boolean gameOver = false;
+    private int items;
+    private char[][] gameMap;
+    private char[][] initalMap = {
 	{'#','#','#','#','#','#','#','#','#','#','#'},
 	{'#','o',' ',' ','A','#','B',' ',' ','G','#'},
 	{'#',' ','#','#',' ',' ',' ','#','#',' ','#'},
@@ -35,6 +38,22 @@ public class Map  {
 	{'#','S',' ',' ',' ','o',' ',' ',' ','o','#'},
 	{'#','#','#','#','#','#','#','#','#','#','#'},
 	};
+
+    /*
+     * getter & setter 
+     */
+
+    public boolean getComplate() {
+	return this.complate;
+    }
+
+    public boolean getGameOver() {
+	return this.gameOver;
+    }
+
+    public char[][] getGameMap() {
+	return this.gameMap;
+    }
 
     public void createGameMap() {
 	copyArray();
@@ -103,13 +122,6 @@ public class Map  {
 	return k;
     }
 
-    public boolean getComplate() {
-	return this.complate;
-    }
-
-    public boolean getGameOver() {
-	return this.gameOver;
-    }
 
     public int[] getEnemyCoordinate(char identification) {
 	int[] k = new int[2];
