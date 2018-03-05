@@ -8,8 +8,8 @@ public class Search {
 	queue.add("d");
 	queue.add("r");
 	queue.add("l");
-	queue.add("w");
-	for(int i = 0;i < 10000000; i++) {
+	//queue.add("w");
+	for(;;) {
 	    String str = queue.poll();
 	    //char[] charArray = str.toCharArray();
 
@@ -36,7 +36,8 @@ public class Search {
     }   
 
    public static char[] getCharArray() {
-	return new char[]{'u','d','r','l','w'};
+	//return new char[]{'u','d','r','l','w'};
+	return new char[]{'u','d','r','l'};
    }
 
    public static int flowGame(char[] signal) {
